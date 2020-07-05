@@ -1,73 +1,99 @@
 <link rel="stylesheet" href="/static/css/bootstrap4.5.min.css" crossorigin="anonymous">
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/font-awesome.min.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/utils.css" crossorigin="anonymous">	
 
-<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!------ Include the above in your HEAD tag ---------->
 
-<div>
-	<nav class="nav">
-		  <div style="padding-left: 78px; padding-top: 15px">
-			  <a class="nav-link active" href="index"><img src="/static/images/WhatsApp Image 2020-07-03 at 10.36.43 PM.jpeg" alt="Girl in a jacket" width="100" height="50"></a>	  	
+<nav class="navbar navbar-light navbar-expand-lg">
+	<div class="container">
+		<a class="navbar-brand" href="/"><img src="/static/images/WhatsApp Image 2020-07-03 at 10.36.43 PM.jpeg" width="80" height="50"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			
+			<ul class="ml-auto navbar-nav">	
+				<li class="nav-item website-font-theme">
+					<a class="nav-link btn-login-area" href="/about"><b class="website-font-theme">About Us</b></a>
+				</li>
+				<li class="nav-item website-font-theme">
+					<a class="nav-link btn-login-area" href="/"><b class="website-font-theme">Language</b></a>
+				</li>
+			</ul>
 		</div>
-		<div style="padding-top: 40px;padding-left: 800px; color:darkblue">
-			<a class="nav-link active" href="about" style="color: darkblue" ><b>About Us<b></a>
-		</div>
-		</nav>
-				<hr>
+	</div>
+</nav>
+<hr>
 
-	<div style="padding-top: 40px;padding-left:450px">	
-	<div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 22rem;">
+<div class="container">
+	<div class="row card-margin " align="center">
+		<div class="col-md-12">
+		<div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 22rem;">
 		  <div class="card-body">
-		  	<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1" style="color: grey">Email Address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1" style="color: grey">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div style="padding-left: 100px">
-  <button type="submit" class="btn btn-primary">Submit</button>
-  </div>
-  <br>
-  <div style="padding-left: 80px">
-  	<a href="" style="color: grey"	><small> forgot password?</small></a>
-  </div>
-</form>
+          <form>
+              <div class="form-group">
+                  <label for="exampleInputEmail1" class="std-para">Email Address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="std-para">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+    <br>
+            <div >
+                <a href=""><small class="std-para"> forgot password?</small></a>
+            </div>
+          </form>
 		  </div>
 	</div>
-
 	</div>
-
+	</div>
 </div>
 
-<footer style="padding-bottom: 20px;background-color: #F4F1F1">
+
+
+<footer class="footer-color">
 	<hr>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-3" style="color: grey">
-			SSP India Private Limited.<br>
-			<small>Nagar Fata road, MIDC Industries.<br>
-			North Block, C-10,<br>
-			Pune-411007</small>
-		</div>
-		<div class="col-md-4"></div>
-		<div class="col-md-4" style="color: grey"><small><a href="" style="color: grey"><i class="fa fa-envelope" aria-hidden="true"></i> SSP@gmail.com</a>	<br>
-			<i class="fa fa-phone" aria-hidden="true"></i> +21-567843 <br>
-			<a href="" style="color: grey"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Careers</a>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 std-para">
+				PJ India Ltd.<br>
+				<small>At Post Shikrapur,</small><br>
+				<small>Nagar-Pune Road,</small><br>
+				<small>Tas. Shirur,Pune - 412208</small>
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-3">
+				<small class="std-para"><a href="" class="std-para"><i class="fa fa-envelope" aria-hidden="true"></i> pjindia7000@gmail.com</a><br>
+			<i class="fa fa-phone" aria-hidden="true"></i> +91-7499837810 / 9970412333 <br>
+			<a href="" class="std-para"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Careers</a>
 		</small>
+			</div>
 		</div>
-	</div>
-	<br>
-	<div class="row">
-		
-		<div class="col-md-3"><small style="color: grey; padding-left: 20px">© 2020 All Rights reseved by SSP pvt Ltd.</small></div>
-		<div class="col-md-6"><small style="color: grey;padding-left: 150px">Be the change you wish to see in the world - MK Gandhi</small></div>
-		<div class="col-md-3" style="color: grey"> <small>Developed by - <a href="https://github.com/khushalt">Khushal Trivedi <i class="fa fa-github" aria-hidden="true"></i></a></small>
 	</div>
 
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-md-3">
+				<small class="std-para">
+					<i class="fa fa-copyright" aria-hidden="true"></i> copyrights reserved 2020.	
+				</small>
+			</div>
+			<div class="col-md-6" align="center">
+				<small class="std-para">
+					Be the change you wish to see in the world - MK Gandhi
+				</small>
+			</div>
+			<div class="col-md-3 footer-margin" align="right">
+				<small class="std-para">Developed by - <a href="https://github.com/khushalt" class="std-para">Khushal trivedi <i class="fa fa-github" aria-hidden="true"></i></a><br>
+					Powered By - <a href="https://dashboard.heroku.com/apps"m class="std-para">Heroku Cloud</a>
+				</small>
+			</div>
+		</div>	
+	</div>
 </footer>
