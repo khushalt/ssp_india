@@ -1,0 +1,3 @@
+Blueprint
+creating app with functions
+shell context to remember environment variable

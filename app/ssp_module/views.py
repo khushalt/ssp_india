@@ -1,6 +1,7 @@
 from app.ssp_module import ssp_app
 from flask import render_template
 
+
 @ssp_app.route('/')
 @ssp_app.route('/index')
 def index():
