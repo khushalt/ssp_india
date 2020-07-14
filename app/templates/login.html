@@ -7,15 +7,15 @@
 		<div class="col-md-12">
 		<div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 22rem;">
 		  <div class="card-body">
-          <form id="loginForm">
+          <form id="loginForm" method="post" action="/login" runat="server">
               <div class="form-group">
                   <label for="exampleInputEmail1" class="std-para">Email Address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1" class="std-para">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <input type="password" class="form-control" id="exampleInputPassword1" name="password">
             </div>
             <div>
                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
