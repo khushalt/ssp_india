@@ -20,7 +20,7 @@ def about():
 @ssp_app.route('/desk')
 @login_required
 def desk():
-	return render_template('desk/desk_base.html')
+	return render_template('desk/dashboard.html')
 
 @ssp_app.route('/ping', methods=['GET'])
 def ping():
