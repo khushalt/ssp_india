@@ -1,6 +1,6 @@
 from app.ssp_module import ssp_app, login
 from flask import render_template, request, flash, redirect, url_for
-from flask_login import current_user, login_user, login_required
+from flask_login import current_user, login_user, login_required, logout_user
 from app.ssp_module.models import User
 # from flask_babel import _
 
@@ -39,9 +39,11 @@ def login():
 	except Exception as e:
 		raise e
 
-@ssp_app.route('/logout', methods=['POST'])
+@ssp_app.route('/logout')
 @login_required
-def logout():pass
+def logout():
+	logout_user()
+	return redirect(url_for('login_page'))
 
 
 
