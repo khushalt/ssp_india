@@ -34,6 +34,7 @@ def login():
 		if not User.query.filter_by(email=email).first() or not user_.check_password(password):
 			flash('Invalid username or password')
 			return redirect(url_for('login_page'))
+		flash('Logged in successfully')
 		login_user(user_, remember=user_)
 		return redirect(url_for('desk'))
 	except Exception as e:

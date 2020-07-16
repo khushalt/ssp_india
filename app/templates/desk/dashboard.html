@@ -3,6 +3,21 @@
 {% block mains %}
 
 <div class="container card-margin">
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+         {% if messages %}
+               {% for message in messages %}
+               <div class="alert alert-success" role="alert" align="center"
+               		 id = "alert-success">
+  					{{message}}
+				</div>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+		</div>
+		
+	</div>
     <div class="row dscard-margin">
         <div class="col-md-3" align="center">
             <div class="card dash-cs shadow p-3 mb-5 bg-white rounded">
