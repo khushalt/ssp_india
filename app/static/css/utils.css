@@ -34,3 +34,7 @@
 .nav-attributes {
 	color: white;
 }
+
+.rm-hylink {
+  text-decoration: none!important;
+}
