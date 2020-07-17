@@ -17,6 +17,10 @@ def login_page():
 def about():
 	return render_template('about.html')
 
+@ssp_app.route('/forgot')
+def forgot_password():
+	return render_template('forgot_password.html')
+
 @ssp_app.route('/desk')
 @login_required
 def desk():

@@ -13,4 +13,4 @@ ssp_app.config.from_object(Config)
 db = SQLAlchemy(ssp_app)
 migrate = Migrate(ssp_app, db)
 
-from app.ssp_module import views, models
+from app.ssp_module import views, models, errors
