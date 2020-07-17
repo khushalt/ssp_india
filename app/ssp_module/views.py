@@ -1,7 +1,8 @@
-from app.ssp_module import ssp_app, login
+from app.ssp_module import ssp_app, login, mail
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from app.ssp_module.models import User
+from flask_mail import Message
 # from flask_babel import _
 
 @ssp_app.route('/')
@@ -26,10 +27,6 @@ def forgot_password():
 def desk():
 	return render_template('desk/dashboard.html')
 
-@ssp_app.route('/ping', methods=['GET'])
-def ping():
-	return {"status":"pong"}
-
 @ssp_app.route('/login', methods=['POST'])
 def login():
 	try:
@@ -50,5 +47,20 @@ def logout():
 	logout_user()
 	return redirect(url_for('login_page'))
 
+@ssp_app.route('/forgot_password', methods=['POST'])
+def sendnew_password():
+	user_ =  User.query.filter_by(email=request.form.get('username')).first()
+	if not user_:
+		flash("Oops, it seems we dont have your account" , "danger")
+		return redirect(url_for('forgot_password'))
+	try:
+		msg = Message("Hello",
+			              sender=ssp_app.config.get('MAIL_USERNAME'),
+			              recipients=["khushalt5@gmail.com"])
+		mail.send(msg)
+		flash("Password Instruction sent successfully", "success")
+	except Exception as e:
+		raise e
+	return redirect(url_for('forgot_password'))
 
 

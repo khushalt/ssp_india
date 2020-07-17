@@ -12,7 +12,7 @@
 }
 
 .card-margin {
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .card-text {
@@ -35,11 +35,12 @@
 	color: white;
 }
 
-/*.rm-hylink {
-  text-decoration: none!important;
-}*/
+.login-scroll {
+	height: 1110px;
+	overflow: scroll;
+}
 
 a {
-	  text-decoration: none!important;
-  color: inherit !important;
+	text-decoration: none!important;
+	color: inherit !important;
 }
