@@ -1,12 +1,16 @@
-from app.ssp_module import db, login
+from app.app import db, login_manager
+from app.app import create_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, default=True)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    password_hash = db.Column(db.String(128),  nullable=True)
+    creation = db.Column(db.DateTime, nullable=False)
+    updated = db.Column(db.DateTime, nullable=True)
+    full_name = db.Column(db.String(180),  nullable=False)
 
     def __repr__(self):
         return 'User {}'.format(self.email) 
@@ -17,9 +21,7 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def get_password(self, user_id):
-        pass
 
-@login.user_loader
+@login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))

@@ -1,4 +1,4 @@
-from app.ssp_module import ssp_app
+from app.app import create_app
 
 if __name__ == '__main__':
-	ssp_app.run(debug=True)
+	create_app().run(debug=True)
