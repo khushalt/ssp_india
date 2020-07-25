@@ -5,8 +5,7 @@ from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True, default=True)
-    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False, primary_key=True)
     password_hash = db.Column(db.String(128),  nullable=True)
     creation = db.Column(db.DateTime, nullable=False)
     updated = db.Column(db.DateTime, nullable=True)
@@ -21,7 +20,12 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_id(self):
+           return (self.email)
+
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return User.query.get(id)
+
+

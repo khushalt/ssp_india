@@ -74,30 +74,26 @@ def token_details(app, user):
 	token = {'data': user, 'key': app().secret_key}
 	return get_reset_token(token)
 
-@ssp_bp.route('/verify/<token>')
+@ssp_bp.route('/verify/<token>', methods=['GET', 'POST'])
 def verify_token(token):
 	try:
 		from app.app import create_app
-		decode = decode_user_token(token)
-		if decode.get('identity').get('key') == create_app().secret_key:
+		from app.ssp_module.models import User, db
+		decode, app = decode_user_token(token), create_app()
+		if decode.get('identity').get('key') == app.secret_key and request.method == 'GET':
+			return render_template('reset_password.html')
+		if decode.get('identity').get('key') == app.secret_key and request.method == 'POST':
+			user = decode.get('identity').get('data')	
+			user =  User.query.filter_by(email=user).first()
+			user.set_password(request.form.get('password'))
+			db.session.add(user)
+			db.session.commit()
+			flash("Password has been set successfully", "success")
 			return render_template('reset_password.html')
 	except Exception as e:
 		raise e
 
-@ssp_bp.route('/reset', methods=['GET','POST'])
-def reset_password():
-	token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6eyJkYXRhIjoia2h1c2hhbHQ1QGdtYWlsLmNvbSIsImtleSI6Il81I3kyTFwiRjRROHpcblx1MDBlY10vIn0sInR5cGUiOiJhY2Nlc3MiLCJleHAiOjE2MjcxNDY3NjUsIm5iZiI6MTU5NTYxMDc2NSwianRpIjoiZDMzNzNkOGQtZjk1My00Y2RiLWFhMzItM2ZhODgwOWM1NGQ4IiwiaWF0IjoxNTk1NjEwNzY1LCJmcmVzaCI6ZmFsc2V9.crXs4zzvUkLOoHFVjQFJ30NUgaslcyy9vUnrqPrEuqo"
-	from app.ssp_module.models import User
-	from app.app import db
-	decode = decode_user_token(token)
-	user = decode.get('identity').get('data')
-	user =  User.query.filter_by(email=user).first()
-	user.set_password(request.form.get('password'))
-	db.session.add(user)
-	db.session.commit()
-	flash("Password has been set successfully")
-	return redirect(url_for('ssp.login'))
-	# return "####"
+
 	
 
 	

@@ -9,6 +9,7 @@ from .ssp_module.routes import ssp_bp
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_jwt_extended import JWTManager
+from flask_debugtoolbar import DebugToolbarExtension
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -16,6 +17,8 @@ login_manager = LoginManager()
 admin = Admin()
 jwt = JWTManager()
 mail = Mail()
+toolbar = DebugToolbarExtension()
+
 
 mail_settings = {
 	"MAIL_SERVER": 'smtp.gmail.com',
@@ -44,6 +47,7 @@ def register_extensions(app):
 	login_manager.init_app(app)
 	jwt.init_app(app)
 	mail.init_app(app)
+	# toolbar.init_app(app)
 	from app.ssp_module import models
 
 def register_blueprints(app):
