@@ -23,8 +23,8 @@ mail_settings = {
  	"MAIL_PORT": 465,
 	"MAIL_USE_TLS": False,
 	"MAIL_USE_SSL": True,
-	"MAIL_USERNAME": 'khushal.t@domain.com',
-	"MAIL_PASSWORD": '*******'
+	"MAIL_USERNAME": 'khushal.t@indictsranstech.com',
+	"MAIL_PASSWORD": 'indicdtransssss@cr7'
 }
 
 

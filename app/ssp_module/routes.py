@@ -5,7 +5,7 @@ from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from flask_mail import Message
 from flask import Blueprint
-from app.utils import get_reset_token, decode_user_token
+from app.utils import get_reset_token, decode_user_token, send_mail
 
 ssp_bp = Blueprint('ssp', __name__, url_prefix='/')
 
@@ -59,12 +59,10 @@ def sendnew_password():
 		flash("Oops, it seems we dont have your account" , "danger")
 		return redirect(url_for('ssp.forgot_password'))
 	try:
-		msg = Message("Hello",
-			              sender = create_app().config.get('MAIL_USERNAME'),
-			              recipients=[request.form.get('username')])
 		token = request.url_root + "/verify/"+ token_details(create_app, request.form.get('username')) 
-		msg.html = render_template('reset_password_mail.html', user=user.full_name, token=token)
-		mail.send(msg)
+		send_mail(subject="Password Reset Instruction", 
+				recipients=[request.form.get('username')], template = 'reset_password_mail.html',
+				data={'user': user.full_name, 'token': token})
 		flash("Password Instruction sent successfully", "success")
 	except Exception as e:
 		raise e
