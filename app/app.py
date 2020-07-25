@@ -4,8 +4,6 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail	import Mail
-from .api.route import api_bp
-from .ssp_module.routes import ssp_bp
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_jwt_extended import JWTManager
@@ -26,7 +24,7 @@ mail_settings = {
 	"MAIL_USE_TLS": False,
 	"MAIL_USE_SSL": True,
 	"MAIL_USERNAME": 'khushal.t@domain.com',
-	"MAIL_PASSWORD": '******'
+	"MAIL_PASSWORD": '*******'
 }
 
 
@@ -51,6 +49,8 @@ def register_extensions(app):
 	from app.ssp_module import models
 
 def register_blueprints(app):
+	from .ssp_module.routes import ssp_bp
+	from .api.route import api_bp
 	app.register_blueprint(ssp_bp)
 	app.register_blueprint(api_bp)
 

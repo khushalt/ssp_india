@@ -1,4 +1,6 @@
 # from app import ssp_app, mail
+from app.ssp_module.models import User
+from app.app import create_app, db
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, login_required, logout_user
 from flask_mail import Message
@@ -32,7 +34,6 @@ def desk():
 @ssp_bp.route('/login', methods=['POST'])
 def login():
 	try:
-		from app.ssp_module.models import User
 		email, password = request.form.get('username'), request.form.get('password')
 		user_ =  User.query.filter_by(email=email).first()
 		if not User.query.filter_by(email=email).first() or not user_.check_password(password):
@@ -52,7 +53,6 @@ def logout():
 
 @ssp_bp.route('/forgot_password', methods=['POST'])
 def sendnew_password():
-	from app.ssp_module.models import User
 	from app.app import mail, create_app
 	user =  User.query.filter_by(email=request.form.get('username')).first()
 	if not user:
@@ -77,8 +77,6 @@ def token_details(app, user):
 @ssp_bp.route('/verify/<token>', methods=['GET', 'POST'])
 def verify_token(token):
 	try:
-		from app.app import create_app
-		from app.ssp_module.models import User, db
 		decode, app = decode_user_token(token), create_app()
 		if decode.get('identity').get('key') == app.secret_key and request.method == 'GET':
 			return render_template('reset_password.html')
