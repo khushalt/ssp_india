@@ -1,17 +1,16 @@
 # from app import ssp_app, mail
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, login_required, logout_user
-# from flask_mail import Message
-# from app.utils import get_random_string
+from flask_mail import Message
 from flask import Blueprint
-# # from flask_babel import _
+from app.utils import get_reset_token, decode_user_token
 
 ssp_bp = Blueprint('ssp', __name__, url_prefix='/')
 
 @ssp_bp.route('/')
 @ssp_bp.route('/index')
 def index():
-   return render_template('index.html')
+	return render_template('index.html')
 
 @ssp_bp.route('/login_page')
 def login_page():
@@ -51,19 +50,54 @@ def logout():
 	logout_user()
 	return redirect(url_for('ssp.login_page'))
 
-# @ssp_app.route('/forgot_password', methods=['POST'])
-# def sendnew_password():
-# 	user_ =  User.query.filter_by(email=request.form.get('username')).first()
-# 	if not user_:
-# 		flash("Oops, it seems we dont have your account" , "danger")
-# 		return redirect(url_for('forgot_password'))
-# 	try:
-# 		msg = Message("Hello",
-# 			              sender=ssp_app.config.get('MAIL_USERNAME'),
-# 			              recipients=["khushalt5@gmail.com"])
-# 		mail.send(msg)
-# 		flash("Password Instruction sent successfully", "success")
-# 	except Exception as e:
-# 		raise e
-# 	return redirect(url_for('forgot_password'))
+@ssp_bp.route('/forgot_password', methods=['POST'])
+def sendnew_password():
+	from app.ssp_module.models import User
+	from app.app import mail, create_app
+	user =  User.query.filter_by(email=request.form.get('username')).first()
+	if not user:
+		flash("Oops, it seems we dont have your account" , "danger")
+		return redirect(url_for('ssp.forgot_password'))
+	try:
+		msg = Message("Hello",
+			              sender = create_app().config.get('MAIL_USERNAME'),
+			              recipients=[request.form.get('username')])
+		token = request.url_root + "/verify/"+ token_details(create_app, request.form.get('username')) 
+		msg.html = render_template('reset_password_mail.html', user=user.full_name, token=token)
+		mail.send(msg)
+		flash("Password Instruction sent successfully", "success")
+	except Exception as e:
+		raise e
+	return redirect(url_for('ssp.forgot_password'))
 
+def token_details(app, user):
+	token = {'data': user, 'key': app().secret_key}
+	return get_reset_token(token)
+
+@ssp_bp.route('/verify/<token>')
+def verify_token(token):
+	try:
+		from app.app import create_app
+		decode = decode_user_token(token)
+		if decode.get('identity').get('key') == create_app().secret_key:
+			return render_template('reset_password.html')
+	except Exception as e:
+		raise e
+
+@ssp_bp.route('/reset', methods=['GET','POST'])
+def reset_password():
+	token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6eyJkYXRhIjoia2h1c2hhbHQ1QGdtYWlsLmNvbSIsImtleSI6Il81I3kyTFwiRjRROHpcblx1MDBlY10vIn0sInR5cGUiOiJhY2Nlc3MiLCJleHAiOjE2MjcxNDY3NjUsIm5iZiI6MTU5NTYxMDc2NSwianRpIjoiZDMzNzNkOGQtZjk1My00Y2RiLWFhMzItM2ZhODgwOWM1NGQ4IiwiaWF0IjoxNTk1NjEwNzY1LCJmcmVzaCI6ZmFsc2V9.crXs4zzvUkLOoHFVjQFJ30NUgaslcyy9vUnrqPrEuqo"
+	from app.ssp_module.models import User
+	from app.app import db
+	decode = decode_user_token(token)
+	user = decode.get('identity').get('data')
+	user =  User.query.filter_by(email=user).first()
+	user.set_password(request.form.get('password'))
+	db.session.add(user)
+	db.session.commit()
+	flash("Password has been set successfully")
+	return redirect(url_for('ssp.login'))
+	# return "####"
+	
+
+	

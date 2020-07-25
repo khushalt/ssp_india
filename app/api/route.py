@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required, create_access_token
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 @api_bp.route('/ping')
-@jwt_required
+# @jwt_required
 def check_connection():
 	return "pong"
 
