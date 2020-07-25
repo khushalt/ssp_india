@@ -25,8 +25,8 @@ mail_settings = {
  	"MAIL_PORT": 465,
 	"MAIL_USE_TLS": False,
 	"MAIL_USE_SSL": True,
-	"MAIL_USERNAME": 'khushal.t@indictranstech.com',
-	"MAIL_PASSWORD": 'indictrans'
+	"MAIL_USERNAME": 'khushal.t@domain.com',
+	"MAIL_PASSWORD": '******'
 }
 
 
