@@ -7,7 +7,6 @@ from flask_mail	import Mail
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_jwt_extended import JWTManager
-from flask_debugtoolbar import DebugToolbarExtension
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -15,7 +14,6 @@ login_manager = LoginManager()
 admin = Admin()
 jwt = JWTManager()
 mail = Mail()
-toolbar = DebugToolbarExtension()
 
 
 mail_settings = {
@@ -23,8 +21,8 @@ mail_settings = {
  	"MAIL_PORT": 465,
 	"MAIL_USE_TLS": False,
 	"MAIL_USE_SSL": True,
-	"MAIL_USERNAME": 'khushal.t@domain.com',
-	"MAIL_PASSWORD": '********'
+	"MAIL_USERNAME": 'khushal.t@Domain.com',
+	"MAIL_PASSWORD": "********"
 }
 
 
@@ -45,14 +43,16 @@ def register_extensions(app):
 	login_manager.init_app(app)
 	jwt.init_app(app)
 	mail.init_app(app)
-	# toolbar.init_app(app)
 	from app.ssp_module import models
+	from app.desk import models
 
 def register_blueprints(app):
 	from .ssp_module.routes import ssp_bp
 	from .api.route import api_bp
+	from .desk.routes import desk_bp
 	app.register_blueprint(ssp_bp)
 	app.register_blueprint(api_bp)
+	app.register_blueprint(desk_bp)
 
 def configure_database(app):
 	

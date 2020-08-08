@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify
 from flask import request
 from werkzeug.security import check_password_hash
 from flask_jwt_extended import jwt_required, create_access_token
+from app.ssp_module.models import User
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -12,7 +13,6 @@ def check_connection():
 
 @api_bp.route('/login', methods=['POST'])
 def login_():
-	from app.ssp_module.models import User
 	username, password = request.form.get('username'), request.form.get('password')
 	if not username or not password:
 		return {'status':'error','message': 'Missing paramenters'}

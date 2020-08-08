@@ -18,7 +18,7 @@ def get_reset_token(userid):
 def decode_user_token(token):
 	return decode_token(token)
 
-def send_mail(subject, recipients, body = None, template= None, data=None):
+def send_mail(subject, recipients, flash_msg = 'Mail Sent',body = None, template= None, data=None):
 	"""
 	param: subject- Subject of the mail
 	param: recipients is list of recipients to send the mail
@@ -35,5 +35,6 @@ def send_mail(subject, recipients, body = None, template= None, data=None):
 		if template: 
 			msg.html = render_template('reset_password_mail.html',data=data)
 		mail.send(msg)
+		flash(flash_msg, "success")
 	except Exception as e:
 		flash("Please check with the Settings", "danger")

@@ -40,7 +40,15 @@
 	overflow: scroll;
 }
 
+.body-bkgrnd {
+	background-color: ghostwhite;
+}
+
 a {
 	text-decoration: none!important;
 	color: inherit !important;
+}
+
+body {
+    font-family: 'Averia Sans Libre';
 }

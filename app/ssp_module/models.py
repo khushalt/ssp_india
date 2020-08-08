@@ -21,8 +21,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def get_id(self):
-           return (self.email)
-
+        return (self.email)
 
 @login_manager.user_loader
 def load_user(id):

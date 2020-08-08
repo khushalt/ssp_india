@@ -1,0 +1,73 @@
+{% extends "desk/desk_base.html" %}
+
+{% block mains %}
+<div class="container">
+  <div class="row justify-content-center pt-3">
+    <div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 70rem;">
+      <div class="card-body">
+          <form id="loginForm" method="post" action="" runat="server">
+            <div class="row">
+              {{ form.hidden_tag() }}
+              <div class="col-md-6">
+                <div class="form-group text-muted">
+                    {{form.email.label}}
+                    {{form.email(class="form-control")}}
+                  <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
+              </div>
+              </div>
+              
+              <div class="col-md-6 text-center">
+                 <div class="form-group text-muted">
+                    {{form.password.label}}
+                    {{form.password(class="form-control")}}
+                  <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                 <div class="form-group text-muted">
+                    {{form.mail_server.label}}
+                    {{form.mail_server(class="form-control")}}
+                  <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group text-muted">
+                    {{form.mail_port.label}}
+                    {{form.mail_port(class="form-control")}}
+                  <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check text-muted">
+                    {{form.mail_tls(class="form-check-input")}}
+                    {{form.mail_tls.label(class="form-check-label")}}
+                  <small id="emailHelp" class="form-text text-muted">Default description</small>
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                 <div class="form-check text-muted">
+                    {{form.mail_ssl(class="form-check-input")}}
+                    {{form.mail_ssl.label(class="form-check-label")}}
+                  <small id="emailHelp" class="form-text text-muted">Default description</small>
+              </div>
+              </div>
+
+            </div>        
+            <br>
+
+            <div class="text-center">
+              {{form.submit(class="btn btn-primary")}}
+              
+            </div>
+          </form>
+      </div>
+  </div>
+  </div>
+  
+</div>
+
+{% endblock %}

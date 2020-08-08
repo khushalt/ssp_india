@@ -1,5 +1,4 @@
 window.onload = function(obj) {	
-
 	function fadeOutEffect() {
 	    var fadeTarget = document.getElementById("alert-success");
 	    var fadeEffect = setInterval(function () {

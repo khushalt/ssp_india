@@ -26,6 +26,10 @@ def about():
 def forgot_password():
 	return render_template('forgot_password.html')
 
+@ssp_bp.route('/contact')
+def contact_us():
+	return render_template('contact.html')
+
 @ssp_bp.route('/desk')
 @login_required
 def desk():
@@ -62,8 +66,7 @@ def sendnew_password():
 		token = request.url_root + "/verify/"+ token_details(create_app, request.form.get('username')) 
 		send_mail(subject="Password Reset Instruction", 
 				recipients=[request.form.get('username')], template = 'reset_password_mail.html',
-				data={'user': user.full_name, 'token': token})
-		flash("Password Instruction sent successfully", "success")
+				data={'user': user.full_name, 'token': token}, flash_msg="Password intruction sent successfully")	
 	except Exception as e:
 		raise e
 	return redirect(url_for('ssp.forgot_password'))
@@ -78,7 +81,7 @@ def verify_token(token):
 		decode, app = decode_user_token(token), create_app()
 		if decode.get('identity').get('key') == app.secret_key and request.method == 'GET':
 			return render_template('reset_password.html')
-		if decode.get('identity').get('key') == app.secret_key and request.method == 'POST':
+		elif decode.get('identity').get('key') == app.secret_key and request.method == 'POST':
 			user = decode.get('identity').get('data')	
 			user =  User.query.filter_by(email=user).first()
 			user.set_password(request.form.get('password'))
