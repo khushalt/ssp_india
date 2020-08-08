@@ -2,6 +2,21 @@
 
 {% block mains %}
 <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+         {% if messages %}
+               {% for category,message in messages %}
+               <div class="alert alert-{{category}}" role="alert" align="center"
+                   id = "alert-success">
+            {{message}}
+        </div>
+               {% endfor %}
+         {% endif %}
+      {% endwith %}
+    </div>    
+  </div>
+
   <div class="row justify-content-center pt-3">
     <div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 70rem;">
       <div class="card-body">

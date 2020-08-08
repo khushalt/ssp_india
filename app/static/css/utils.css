@@ -49,6 +49,6 @@ a {
 	color: inherit !important;
 }
 
-body {
-    font-family: 'Averia Sans Libre';
+.header-font {
+	font-family: 'Bebas Neue';
 }
