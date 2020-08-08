@@ -16,15 +16,22 @@ def eamil_config():
 	elif request.method == 'POST':
 		try:
 			if form.validate_on_submit():
-				email = EmailSetting(username = request.form.get('email'), email_server = 'smtp.gmail.com',
-									email_port = request.form.get('mail_port'), mail_ttl = request.form.get('mail_tls'),
-									mail_ssl = request.form.get('mail_ssl'))
-				email.set_password(request.form.get('password'))
-				db.session.add(email)
-				db.session.commit()
-				flash("Email Submitted Successfully", 'success')
+				is_email = EmailSetting.query.all()
+				if not is_email:
+					email = EmailSetting(username = request.form.get('email'), email_server = 'smtp.gmail.com',
+										email_port = request.form.get('mail_port'), mail_ttl = 1 if request.form.get('mail_tls') else 0,
+										mail_ssl = 1 if request.form.get('mail_ssl') else 0)
+					email.set_password(request.form.get('password'))
+					db.session.add(email)
+					db.session.commit()
+					flash("Email Submitted Successfully", 'success')
+				else:
+					email_ = EmailSetting.query.filter_by(username=is_email[0].username)
+					email_.username = 'test@gmail.com'
+					db.session.commit()
+					flash("Email Exist","danger")
 			return render_template('/desk/email_settings.html', title="Email Settings", form= form)
 		except Exception as e:
 			flash("Something went wrong, please check log for more details", "danger")
-			print(e)
+			print(">>>>>",e)
 			return render_template('/desk/email_settings.html', title="Email Settings", form= form)

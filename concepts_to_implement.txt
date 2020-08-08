@@ -1,3 +1,5 @@
-Blueprint
-creating app with functions
-shell context to remember environment variable
+Blueprint - Implemented
+creating app with functions - Implemented
+shell context to remember environment variable - 
+Command Line utility - 
+writing you own ORM methods -

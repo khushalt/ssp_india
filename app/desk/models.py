@@ -11,7 +11,7 @@ class EmailSetting(db.Model):
     mail_ttl = db.Column(db.Boolean())
     mail_ssl = db.Column(db.Boolean())
     creation = db.Column(db.DateTime, nullable=False, default=datetime.datetime.utcnow)
-    updated = db.Column(db.DateTime, nullable=True)
+    updated = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
