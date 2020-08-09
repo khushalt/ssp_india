@@ -26,12 +26,18 @@ def eamil_config():
 					db.session.commit()
 					flash("Email Submitted Successfully", 'success')
 				else:
-					email_ = EmailSetting.query.filter_by(username=is_email[0].username)
-					email_.username = 'test@gmail.com'
+					email_ = EmailSetting.query.filter_by(username=is_email[0].username).first()
+					print(request.form)
+					email_.username = request.form.get('email')
+					email_.email_port = request.form.get('mail_port')
+					email_.mail_ssl = 1 if request.form.get('mail_ssl') else 0
+					email_.mail_ttl = 1 if request.form.get('mail_tls') else 0
+					email_.set_password(request.form.get('password'))
 					db.session.commit()
-					flash("Email Exist","danger")
+					flash("Document updated successfully","success")
 			return render_template('/desk/email_settings.html', title="Email Settings", form= form)
 		except Exception as e:
 			flash("Something went wrong, please check log for more details", "danger")
 			print(">>>>>",e)
 			return render_template('/desk/email_settings.html', title="Email Settings", form= form)
+

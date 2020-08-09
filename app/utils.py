@@ -5,6 +5,7 @@ from flask_jwt_extended import decode_token, create_access_token
 from app.app import mail, create_app
 from flask_mail import Message
 from flask import render_template, flash
+import traceback
 
 
 def get_random_string(length):
@@ -37,4 +38,5 @@ def send_mail(subject, recipients, flash_msg = 'Mail Sent',body = None, template
 		mail.send(msg)
 		flash(flash_msg, "success")
 	except Exception as e:
+		print(">>>>>>",e,traceback.print_exc())
 		flash("Please check with the Settings", "danger")
