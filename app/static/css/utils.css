@@ -52,3 +52,11 @@ a {
 .header-font {
 	font-family: 'Beth Ellen';
 }
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #85e673;
+  border-radius: 50%;
+  display: inline-block;
+}

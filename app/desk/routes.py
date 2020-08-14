@@ -11,12 +11,14 @@ desk_bp = Blueprint('desk', __name__, url_prefix='/desk')
 @login_required
 def eamil_config():
 	form = EmailSettings()
+	is_email = EmailSetting.query.all()
 	if request.method == 'GET':
-		return render_template('/desk/email_settings.html', title="Email Settings", form= form)
+		if is_email:
+			email_ = EmailSetting.query.filter_by(username=is_email[0].username).first()
+			return render_template('/desk/email_settings.html', title="Email Settings", form= form, values= email_)
 	elif request.method == 'POST':
 		try:
 			if form.validate_on_submit():
-				is_email = EmailSetting.query.all()
 				if not is_email:
 					email = EmailSetting(username = request.form.get('email'), email_server = 'smtp.gmail.com',
 										email_port = request.form.get('mail_port'), mail_ttl = 1 if request.form.get('mail_tls') else 0,
@@ -27,17 +29,19 @@ def eamil_config():
 					flash("Email Submitted Successfully", 'success')
 				else:
 					email_ = EmailSetting.query.filter_by(username=is_email[0].username).first()
-					print(request.form)
-					email_.username = request.form.get('email')
-					email_.email_port = request.form.get('mail_port')
-					email_.mail_ssl = 1 if request.form.get('mail_ssl') else 0
-					email_.mail_ttl = 1 if request.form.get('mail_tls') else 0
-					email_.set_password(request.form.get('password'))
-					db.session.commit()
+					update_email(email_)
 					flash("Document updated successfully","success")
-			return render_template('/desk/email_settings.html', title="Email Settings", form= form)
+			return render_template('/desk/email_settings.html', title="Email Settings", form= form, values= email_)
 		except Exception as e:
 			flash("Something went wrong, please check log for more details", "danger")
 			print(">>>>>",e)
 			return render_template('/desk/email_settings.html', title="Email Settings", form= form)
 
+def update_email(email_):
+	#pass email object it will save to db
+	email_.username = request.form.get('email')
+	email_.email_port = request.form.get('mail_port')
+	email_.mail_ssl = 1 if request.form.get('mail_ssl') else 0
+	email_.mail_ttl = 1 if request.form.get('mail_tls') else 0
+	email_.set_password(request.form.get('password'))
+	db.session.commit()

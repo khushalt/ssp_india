@@ -20,7 +20,7 @@
   <div class="row justify-content-center pt-3">
     <div class="card shadow-lg p-3 mb-4 bg-white rounded" style="width: 70rem;">
       <div class="row justify-content-center text-muted">
-         Email Settings
+           <span class="dot justify-content-center mt-2"></span> <span class="ml-1">Email Settings</span>
       </div>
       <div class="card-body">
           <form id="loginForm" method="post" action="" runat="server">
@@ -29,15 +29,15 @@
               <div class="col-md-6">
                 <div class="form-group text-muted">
                     {{form.email.label}}
-                    {{form.email(class="form-control")}}
+                    {{form.email(class="form-control", value = values.username)}}
                   <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
               </div>
               </div>
               
-              <div class="col-md-6 text-center">
+              <div class="col-md-6">
                  <div class="form-group text-muted">
                     {{form.password.label}}
-                    {{form.password(class="form-control")}}
+                    {{form.password(class="form-control", value= "")}}
                   <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
               </div>
               </div>
@@ -45,7 +45,7 @@
               <div class="col-md-6">
                  <div class="form-group text-muted">
                     {{form.mail_server.label}}
-                    {{form.mail_server(class="form-control")}}
+                    {{form.mail_server(class="form-control", value = values.email_server)}}
                   <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
                 </div>
               </div>
@@ -53,15 +53,15 @@
               <div class="col-md-6">
                 <div class="form-group text-muted">
                     {{form.mail_port.label}}
-                    {{form.mail_port(class="form-control")}}
+                    {{form.mail_port(class="form-control", value = values.email_port)}}
                   <small id="emailHelp" class="form-text text-muted">Please check your email,Instructions have been sent.</small>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-check text-muted">
-                    {{form.mail_tls(class="form-check-input")}}
-                    {{form.mail_tls.label(class="form-check-label")}}
+                    {{form.mail_tls(class="form-check-input", value = values.mail_ssl)}}
+                    {{form.mail_tls.label(class="form-check-label", value = values.mail_ssl)}}
                   <small id="emailHelp" class="form-text text-muted">Default description</small>
               </div>
               </div>
