@@ -7,4 +7,5 @@ class Config(object):
         'mysql+pymysql://rSZ52hcRBj:rRbMHS7oO9@localhost/flaskapp'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    secret_key = 'L8ZuiOeEQna8xyrAFYuDWFGXLeupB6V9M2-7PXgbGwA='
 

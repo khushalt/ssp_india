@@ -6,7 +6,8 @@ from app.app import mail, create_app
 from flask_mail import Message
 from flask import render_template, flash
 import traceback
-
+from cryptography.fernet import Fernet
+from config import Config
 
 def get_random_string(length):
     letters = string.ascii_lowercase
@@ -40,3 +41,14 @@ def send_mail(subject, recipients, flash_msg = 'Mail Sent',body = None, template
 	except Exception as e:
 		print(">>>>>>",e,traceback.print_exc())
 		flash("Please check with the Settings", "danger")
+
+def get_encryption(string):
+	cipher_suite = Fernet(get_encrytionkey())
+	return cipher_suite.encrypt(bytes(string, 'utf-8')).decode()
+
+def get_decryption(encrypted_val):
+	cipher_suite = Fernet(get_encrytionkey())
+	return cipher_suite.decrypt(bytes(encrypted_val, 'utf-8')).decode()
+
+def get_encrytionkey():
+	return Config().secret_key

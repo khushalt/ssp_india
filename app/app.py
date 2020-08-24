@@ -23,7 +23,7 @@ mail_settings = {
 	"MAIL_USE_TLS": False,
 	"MAIL_USE_SSL": True,
 	"MAIL_USERNAME": 'khushal.t@indictranstech.com',
-	"MAIL_PASSWORD": "indictrans@cr7"
+	"MAIL_PASSWORD": "testpassword"
 }
 
 
@@ -72,15 +72,26 @@ def configure_database(app):
 def import_mail_settings(app):
 	with app.app_context():
 		from app.desk.models import EmailSetting
+		from app.utils import get_decryption
 		email = EmailSetting.query.one()
-		return {
+		dict_ = {
 			"MAIL_SERVER": email.email_server,
 		 	"MAIL_PORT": email.email_port,
 			"MAIL_USE_TLS": email.mail_ttl,
 			"MAIL_USE_SSL": email.mail_ssl,
 			"MAIL_USERNAME": email.username,
-			"MAIL_PASSWORD": email.password_hash
+			"MAIL_PASSWORD": get_decryption(email.password_hash)
 		}
+		mail_settings = {
+			"MAIL_SERVER": 'smtp.gmail.com',
+		 	"MAIL_PORT": 465,
+			"MAIL_USE_TLS": False,
+			"MAIL_USE_SSL": True,
+			"MAIL_USERNAME": 'khushal.t@indictranstech.com',
+			"MAIL_PASSWORD": "testpassword"
+		}
+		print("****************",dict_,mail_settings)
+		return dict_
 
 
 

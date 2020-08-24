@@ -1,6 +1,7 @@
 from app.app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from app.utils import get_encryption
 
 
 class EmailSetting(db.Model):
@@ -14,4 +15,4 @@ class EmailSetting(db.Model):
     updated = db.Column(db.DateTime, nullable=True, default=datetime.datetime.utcnow)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = get_encryption(password)
